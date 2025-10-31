@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!--
+        1. id 使用[任务ID]-[日期]-[作者]-[序号]，如 T100-20220801-yyg-001
+        2. 必须填写author
+        3. 所有 表、列 必须加remarks进行注释
+        4. 已经执行过的ChangeSet严禁修改
+    -->
+    <changeSet id="T001-20251026-yyg-001" author="yyg">
+
+        <createTable remarks="系统角色表" tableName="sys_role">
+            <column name="id" type="VARCHAR(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(64)" remarks="角色编码"/>
+            <column name="name" type="VARCHAR(64)" remarks="角色名称"/>
+
+            <column name="is_deleted" type="tinyint" remarks="是否删除 0未删除，1已删除" defaultValueNumeric="0"/>
+            <column name="create_time" type="datetime" remarks="创建时间" defaultValueDate="current_timestamp"/>
+            <column name="create_by" type="varchar(64)" remarks="创建人"/>
+            <column name="update_time" type="datetime" remarks="更新时间" defaultValueDate="current_timestamp"/>
+            <column name="update_by" type="varchar(64)" remarks="更新人"/>
+        </createTable>
+        <sql>
+            INSERT INTO sys_role (id, code, name)
+            VALUES ('1', 'SUPER_ADMIN', '超级管理员'),
+                   ('2', 'VOC_EDITOR', '问卷编辑员'),
+                   ('3', 'C_USER', 'C端用户');
+        </sql>
+
+        <createTable remarks="系统用户表" tableName="sys_user">
+            <column name="id" type="VARCHAR(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(64)" remarks="用户名"/>
+            <column name="password" type="VARCHAR(256)" remarks="密码"/>
+            <column name="nickname" type="VARCHAR(64)" remarks="姓名"/>
+            <column name="gender" type="VARCHAR(1)" remarks="性别"/>
+            <column name="tel" type="VARCHAR(16)" remarks="电话"/>
+            <column name="email" type="VARCHAR(128)" remarks="邮箱"/>
+            <column name="ref_id" type="VARCHAR(64)" remarks=""/>
+            <column name="status" type="int" remarks="状态：1-有效，2-禁用" defaultValueNumeric="1"/>
+
+            <column name="is_deleted" type="tinyint" remarks="是否删除 0未删除，1已删除" defaultValueNumeric="0"/>
+            <column name="create_time" type="datetime" remarks="创建时间" defaultValueDate="current_timestamp"/>
+            <column name="create_by" type="varchar(64)" remarks="创建人"/>
+            <column name="update_time" type="datetime" remarks="更新时间" defaultValueDate="current_timestamp"/>
+            <column name="update_by" type="varchar(64)" remarks="更新人"/>
+        </createTable>
+        <sql>
+            INSERT INTO sys_user (id, username, password, nickname)
+            VALUES ('1', 'admin', '{noop}111111', '乌蒙管理员'),
+                   ('2', 'zhangsan', '{noop}111111', '张三');
+        </sql>
+
+        <createTable remarks="系统用户角色表" tableName="sys_user_role">
+            <column name="id" type="VARCHAR(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="VARCHAR(64)" remarks="用户id"/>
+            <column name="role_code" type="VARCHAR(256)" remarks="角色编码"/>
+
+            <column name="is_deleted" type="tinyint" remarks="是否删除 0未删除，1已删除" defaultValueNumeric="0"/>
+            <column name="create_time" type="datetime" remarks="创建时间" defaultValueDate="current_timestamp"/>
+            <column name="create_by" type="varchar(64)" remarks="创建人"/>
+            <column name="update_time" type="datetime" remarks="更新时间" defaultValueDate="current_timestamp"/>
+            <column name="update_by" type="varchar(64)" remarks="更新人"/>
+        </createTable>
+        <sql>
+            INSERT INTO sys_user_role (id, user_id, role_code)
+            VALUES ('1', '1', 'SUPER_ADMIN'),
+                   ('2', '2', 'VOC_EDITOR');
+        </sql>
+    </changeSet>
+
+    <changeSet id="T001-20251030-yyg-001" author="yyg">
+
+        <createTable remarks="系统字典表" tableName="sys_dict">
+            <column name="id" type="VARCHAR(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(64)" remarks="角色编码"/>
+            <column name="name" type="VARCHAR(64)" remarks="角色名称"/>
+
+            <column name="is_deleted" type="tinyint" remarks="是否删除 0未删除，1已删除" defaultValueNumeric="0"/>
+        </createTable>
+        <sql>
+            INSERT INTO sys_dict (id, code, name)
+            VALUES ('1', 'voc_category', '问卷分类'),
+                   ('2', 'voc_hot_label', '问卷热门标签');
+        </sql>
+
+        <createTable remarks="系统字典项表" tableName="sys_dict_item">
+            <column name="id" type="VARCHAR(64)" remarks="主键">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="dict_label" type="VARCHAR(64)" remarks="字典项名称"/>
+            <column name="dict_value" type="VARCHAR(64)" remarks="字典项值"/>
+            <column name="dict_code" type="VARCHAR(64)" remarks="所述字典编码"/>
+            <column name="sort_num" type="integer" remarks="排序" defaultValueNumeric="0"/>
+            <column name="color" type="VARCHAR(64)" remarks="颜色"/>
+        </createTable>
+        <sql>
+            INSERT INTO sys_dict_item(id, dict_label, dict_value, dict_code, sort_num, color )
+            VALUES ('1', '教育学习', '教育学习', 'voc_category', 10, '--wm-color-primary'),
+                   ('2', '商业调研', '商业调研', 'voc_category', 20, '--wm-color-danger'),
+                   ('3', '健康医疗', '健康医疗', 'voc_category', 30, '--wm-color-warning'),
+                   ('4', '生活方式', '生活方式', 'voc_category', 40, '--wm-color-danger'),
+                   ('5', '科技产品', '科技产品', 'voc_category', 50, '--wm-color-primary'),
+                   ('6', '娱乐休闲', '娱乐休闲', 'voc_category', 60, '--wm-color-warning'),
+                   ('7', '社会调查', '社会调查', 'voc_category', 70, '#9C27B0'),
+                   ('8', '市场分析', '市场分析', 'voc_category', 80, '--wm-color-primary'),
+                   ('9', '产品反馈', '产品反馈', 'voc_category', 90, '--wm-color-warning'),
+                   ('10', '用户体验', '用户体验', 'voc_category', 100, '--wm-color-primary'),
+                   ('11', '员工管理', '员工管理', 'voc_category', 110, '--wm-color-primary'),
+                   ('12', '人才招聘', '人才招聘', 'voc_category', 120, '--wm-color-primary'),
+                   ('13', '客户满意度', '客户满意度', 'voc_category', 130, '--wm-color-primary'),
+                   ('14', '学术研究', '学术研究', 'voc_category', 140, '--wm-color-primary'),
+                   ('15', '政府调研', '政府调研', 'voc_category', 150, '--wm-color-primary'),
+                   ('16', '活动报名', '活动报名', 'voc_category', 160, '--wm-color-warning'),
+                   ('17', '培训评估', '培训评估', 'voc_category', 170, '--wm-color-primary'),
+                   ('18', '意见征集', '意见征集', 'voc_category', 180, '--wm-color-danger'),
+                   ('19', '服务评价', '服务评价', 'voc_category', 190, '--wm-color-warning'),
+                   ('20', '品牌认知', '品牌认知', 'voc_category', 200, '#9C27B0'),
+                   ('21', '消费习惯', '消费习惯', 'voc_category', 210, '--wm-color-primary'),
+                   ('22', '旅游出行', '旅游出行', 'voc_category', 220, '--wm-color-info'),
+                   ('23', '环保生态', '环保生态', 'voc_category', 230, '--wm-color-warning'),
+                   ('24', '文化艺术', '文化艺术', 'voc_category', 240, '--wm-color-primary'),
+                   ('25', '体育健身', '体育健身', 'voc_category', 250, '--wm-color-primary'),
+                   ('26', '金融投资', '金融投资', 'voc_category', 260, '--wm-color-primary'),
+                   ('27', '房地产', '房地产', 'voc_category', 270, '--wm-color-primary'),
+                   ('28', '媒体传播', '媒体传播', 'voc_category', 280, '--wm-color-primary'),
+                   ('29', '公益慈善', '公益慈善', 'voc_category', 290, '--wm-color-danger'),
+                   ('30', '公共服务', '公共服务', 'voc_category', 300, '--wm-color-info'),
+                   ('31', '行业调查', '行业调查', 'voc_category', 310, '--wm-color-primary'),
+                   ('32', '安全评估', '安全评估', 'voc_category', 320, '#9C27B0'),
+                   ('33', '质量控制', '质量控制', 'voc_category', 330, '--wm-color-warning'),
+                   ('34', '风险管理', '风险管理', 'voc_category', 340, '--wm-color-primary'),
+                   ('35', '创新研发', '创新研发', 'voc_category', 350, '--wm-color-primary');
+
+            INSERT INTO sys_dict_item(id, dict_label, dict_value, dict_code, sort_num )
+            VALUES ('51', '调研', '调研', 'voc_hot_label', 10),
+                   ('52', '评价', '评价', 'voc_hot_label', 20),
+                   ('53', '反馈', '反馈', 'voc_hot_label', 30),
+                   ('54', '调查', '调查', 'voc_hot_label', 40),
+                   ('55', '问卷', '问卷', 'voc_hot_label', 50),
+                   ('56', '满意度', '满意度', 'voc_hot_label', 60);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

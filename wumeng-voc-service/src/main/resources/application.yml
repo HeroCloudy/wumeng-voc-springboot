@@ -1,0 +1,72 @@
+server:
+  port: 9001
+  servlet:
+    encoding:
+      charset: UTF-8
+      force-response: true
+    context-path: /api
+  tomcat:
+    max-swallow-size: 20MB
+
+spring:
+  application:
+    name: wumeng-user-center
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/voc?userSSL=true&useUnicode=true&characterEncoding=UTF8&serverTimezone=UTC
+    username: root
+    password: Mysql.123
+    type: com.zaxxer.hikari.HikariDataSource
+  liquibase:
+    enabled: true
+    drop-first: false
+    change-log: classpath:/db/changelog-master.xml
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+      resolve-lazily: true
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  type-aliases-package: com.wumeng.mis.entity
+  global-config:
+    db-config:
+      logic-delete-field: isDeleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  group-configs:
+    - group: demo
+      paths-to-match:
+        - /**
+wumeng:
+  doc:
+    info:
+      title: MIS系统接口文档
+      description: 包含MIS系统相关接口，如用户管理、医生管理等
+      version: v0.0.1
+      license:
+        name: Apache2.0
+        url: http://www.wumeng.com
+    external-docs:
+      description: 外部文档demo
+      url: http://www.wumeng.com
+  minio:
+    endpoint: http://localhost:9010
+    access-key: admin
+    secret-key: admin111

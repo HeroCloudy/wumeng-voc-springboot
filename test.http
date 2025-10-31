@@ -1,0 +1,16 @@
+POST http://localhost:9001/api/dict/item-list
+Content-Type: application/json
+
+{
+  "dictCode": ["voc_hot_label", "voc_category"]
+}
+
+###
+GET http://localhost:9001/api/dict/item-list?dictCode[]=voc_hot_label&dictCode[]=voc_category
+Accept: application/json
+
+###
+GET http://localhost:9001/api/dict/item-list/voc_hot_label
+Accept: application/json
+
+###
