@@ -3,10 +3,7 @@ package com.wumeng.voc.entity.voc;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.wumeng.components.mybatis.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serial;
 
@@ -18,6 +15,7 @@ import java.io.Serial;
  * @author 程序员优雅哥
  * @since 2025-10-26 21:16:10
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -6,6 +6,7 @@ import com.wumeng.voc.entity.sys.SysDictItem;
 import com.wumeng.voc.mapper.SysDictItemMapper;
 import com.wumeng.voc.service.ISysDictItemService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.Map;
 @Service
 public class SysDictItemServiceImpl extends ServiceImpl<SysDictItemMapper, SysDictItem> implements ISysDictItemService {
 
+    @Transactional
     @Override
     public List<SysDictItem> getDictItemList(String dictCode) {
         QueryWrapper<SysDictItem> queryWrapper = new QueryWrapper<>();

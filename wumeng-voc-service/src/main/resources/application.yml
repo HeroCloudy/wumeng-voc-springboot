@@ -17,6 +17,12 @@ spring:
     username: root
     password: Mysql.123
     type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 10000
+      maximum-pool-size: 10
+      idle-timeout: 60000
+      max-lifetime: 60000
+      minimum-idle: 3
   liquibase:
     enabled: true
     drop-first: false
