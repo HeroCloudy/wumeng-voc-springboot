@@ -1,3 +1,9 @@
+###
+GET http://localhost:9001/api/ai/stream?prompt=hello
+Accept: application/json
+Authorization: aaaaa
+
+###
 POST http://localhost:9001/api/dict/item-list
 Content-Type: application/json
 

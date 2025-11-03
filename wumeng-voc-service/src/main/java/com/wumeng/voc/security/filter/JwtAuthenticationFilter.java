@@ -1,6 +1,5 @@
 package com.wumeng.voc.security.filter;
 
-import cn.hutool.core.text.AntPathMatcher;
 import com.wumeng.voc.security.entity.SecurityUserDetails;
 import com.wumeng.voc.security.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
@@ -37,6 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 || path.startsWith("/api/voc")
                 || path.startsWith("/api/dict")
                 || path.startsWith("/api/square")
+                || path.startsWith("/api/ai")
         ) {
             filterChain.doFilter(request, response);
             return;

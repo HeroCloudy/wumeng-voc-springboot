@@ -25,6 +25,13 @@ spring:
     redis:
       host: 127.0.0.1
       port: 6379
+  ai:
+    openai:
+      api-key: ${API_KEY}
+      base-url: https://api.deepseek.com
+      chat:
+        options:
+          model: deepseek-chat
   servlet:
     multipart:
       max-file-size: 10MB
