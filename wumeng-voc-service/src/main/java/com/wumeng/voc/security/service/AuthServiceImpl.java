@@ -86,7 +86,7 @@ public class AuthServiceImpl implements AuthService {
         SysUser user = new SysUser();
         user.setUsername(username);
         user.setPassword(this.passwordEncoder.encode(registerVo.getPassword()));
-        user.setNickname(user.getNickname());
+        user.setNickname(registerVo.getNickname());
         this.sysUserService.save(user);
 
         SysUserRole ur = SysUserRole.builder()
