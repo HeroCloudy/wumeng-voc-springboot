@@ -20,3 +20,7 @@ GET http://localhost:9001/api/dict/item-list/voc_hot_label
 Accept: application/json
 
 ###
+GET http://localhost:81/voc-api/api/auth/profile
+access_token: eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJqdGkiOiIwNWFmYWI4OC01ZWRkLTRhMzQtOWIzYy00YzFmZmJmMTZkYzciLCJpc3MiOiJZWUciLCJpYXQiOjE3NjIzNDYyMjMsImV4cCI6MTgwNTU0NjIyMywic3ViIjoiVXNlcjoyIn0.SSnyvDBUOEPNVBn6NrR33_0KBUHOt97r2UIPZb2Jb7w
+
+###
